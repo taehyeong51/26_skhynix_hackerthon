@@ -16,3 +16,6 @@
 
 ## 사용한 공개 자료
 - 작업 규칙·스킬 키트: https://github.com/taehyeong51/26_skhynix_hackerthon (커밋 `<해시>`) — 문제 내용·앱 코드 없음, 절차와 양식만
+- 함께 설치한 외부 스킬: <예: core,web — 출처·라이선스는 키트 vendor/SOURCES.md>
+- 실제로 도움이 된 스킬과 장면: <예: systematic-debugging으로 E2 원인 추적>
+- 외부 코드를 옮겼다면: <파일 — 출처 URL·커밋·라이선스>

@@ -48,6 +48,22 @@ if command -v npm >/dev/null 2>&1; then
   npm ls -g --depth=0 --offline 2>/dev/null | tail -n +2 | sed 's/^/  /' | head -20
 fi
 
+echo "== Playwright (설치하지 않고 있는지만 확인)"
+if [ -n "$PY" ]; then
+  line "python playwright" "$($PY -c 'from importlib.metadata import version; print(version("playwright"))' 2>/dev/null || echo '-')"
+fi
+if command -v node >/dev/null 2>&1; then
+  line "node playwright" "$(node -e 'try{console.log(require(require.resolve("playwright/package.json")).version)}catch(e){console.log("-")}' 2>/dev/null)"
+fi
+found=""
+for d in "${PLAYWRIGHT_BROWSERS_PATH:-}" "$HOME/.cache/ms-playwright" /opt/pw-browsers; do
+  [ -n "$d" ] && [ -d "$d" ] && found="$found $(ls -d "$d"/chromium* 2>/dev/null | xargs -n1 basename 2>/dev/null | tr '\n' ' ')"
+done
+for b in chromium chromium-browser google-chrome; do command -v "$b" >/dev/null 2>&1 && found="$found $b"; done
+found="$(printf '%s\n' $found | sort -u | tr '\n' ' ')"
+line "브라우저" "${found:- -}"
+echo "  -> python playwright와 브라우저가 둘 다 있으면 scripts/e2e.py 사용, 아니면 Browser 사람 확인"
+
 echo "== 시간대"
 line "local" "$(date '+%Y-%m-%d %H:%M:%S %Z')"
 line "UTC"   "$(date -u '+%Y-%m-%d %H:%M:%S')"

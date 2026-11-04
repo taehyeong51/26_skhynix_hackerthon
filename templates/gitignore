@@ -1,0 +1,13 @@
+# cofa-kit 기본값 (과제에 맞게 수정)
+__pycache__/
+*.pyc
+.venv/
+venv/
+node_modules/
+.env
+.env.*
+*.log
+.DS_Store
+e2e-shots/
+.pytest_cache/
+# *.db   <- DB를 초기화 스크립트로 다시 만들 수 있을 때만 제외

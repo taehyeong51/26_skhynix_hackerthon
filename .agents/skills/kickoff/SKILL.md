@@ -7,6 +7,7 @@ description: 시험 시작 직후 실행. 과제 README를 읽고 docs/TASK.md �
 
 입력: 사용자가 준 `시작 HH:MM, 과제 마감 HH:MM`. 없으면 먼저 묻는다.
 
+0. 기준점: `git log --oneline -3`으로 과제 초기 상태 커밋이 있는지 본다. 없으면 사용자에게 알리고 `git status`를 보여 준 뒤 `chore: 과제 초기 상태`(키트 파일 제외), `chore: cofa-kit 설치` 순서로 커밋할지 묻는다. git user가 비어 있으면 `git config user.name/user.email`(저장소 범위)을 사용자에게 받는다.
 1. 환경 점검: `bash /tmp/kit/scripts/preflight.sh`를 한 번 실행하고, 결과 중 과제에 영향 있는 것만 docs/TASK.md '환경' 칸에 3~5줄로 적는다(Python 버전, 쓸 수 있는 웹 패키지, 포트, git 사용자 설정).
 2. README 읽기: 과제 루트의 README.md와 README가 가리키는 파일만 읽는다. 데이터 파일은 앞부분만.
 3. docs/TASK.md 채우기:

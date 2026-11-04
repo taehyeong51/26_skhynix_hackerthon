@@ -15,7 +15,9 @@ inst() { (cd "$1" && bash "$KIT/install.sh" "${@:2}"); }
 d="$W/empty"; mkdir -p "$d"
 t  "빈 폴더 설치 성공"            inst "$d"
 t  "AGENTS.md 생성"               test -f "$d/AGENTS.md"
-t  "스킬 7개"                     test "$(ls "$d/.agents/skills" | wc -l)" -eq 7
+t  "스킬 8개 (extras 없음)"       test "$(ls "$d/.agents/skills" | wc -l)" -eq 8
+t  "e2e.py 생성"                  test -x "$d/scripts/e2e.py"
+t  ".gitignore 생성"              grep -q node_modules "$d/.gitignore"
 t  "docs/TASK.md 생성"            test -f "$d/docs/TASK.md"
 t  "산출물 뼈대 2종"              test -f "$d/AI_COLLABORATION.md" -a -f "$d/HOW_TO_USE.md"
 t  "verify.sh 실행 권한"          test -x "$d/scripts/verify.sh"
@@ -78,7 +80,44 @@ t  "실패 있으면 exit 1"           test $rc -eq 1
 mkdir -p "$d/tests"
 nt "unittest 0건은 실패"          bash -c "source <(sed -n '/^tests_ran()/,/^}/p' '$d/scripts/verify.sh'); cd '$d' && tests_ran python3 -m unittest discover -s tests"
 
-# 9. preflight는 읽기 전용
+# 9. --extras
+d="$W/extras"; mkdir -p "$d"
+t  "--extras core,web 설치"       inst "$d" --extras core,web
+t  "스킬 17개"                    test "$(ls "$d/.agents/skills" | wc -l)" -eq 17
+t  "vendor 원문 그대로"           diff -rq "$KIT/vendor/skills/systematic-debugging" "$d/.agents/skills/systematic-debugging"
+t  "vendor LICENSE 동봉"          test -f "$d/.agents/skills/ponytail/LICENSE" -a -f "$d/.agents/skills/webapp-testing/LICENSE.txt"
+t  "extras 재설치 변화 없음"      inst "$d" --extras all
+nt "알 수 없는 extras 거부"       inst "$d" --extras nope
+printf 'x\n' >> "$d/.agents/skills/ponytail/SKILL.md"
+nt "vendor 수정본은 충돌"         inst "$d" --extras core
+t  "--remove (extras 포함)"       inst "$d" --remove
+t  "수정 안 된 vendor 삭제"       test ! -e "$d/.agents/skills/systematic-debugging"
+t  "수정한 vendor는 남김"         test -f "$d/.agents/skills/ponytail/SKILL.md"
+d="$W/single"; mkdir -p "$d"
+t  "스킬 이름으로 하나만"         inst "$d" --extras webapp-testing
+t  "하나만 설치됨"                test "$(ls "$d/.agents/skills" | wc -l)" -eq 9
+# stageshow: 네트워크 없이 미리 받아 둔 폴더로 확인
+s="$W/fake-stageshow"; mkdir -p "$s"; printf -- '---\nname: stageshow\n---\n' > "$s/SKILL.md"
+d="$W/stage"; mkdir -p "$d"
+t  "--extras stageshow (원본 있음)" env KIT_STAGESHOW_DIR="$s" bash -c "cd '$d' && bash '$KIT/install.sh' --extras stageshow"
+t  "stageshow 연결 스킬만 과제에" test -f "$d/.agents/skills/stageshow/SKILL.md" -a ! -e "$d/.agents/skills/stageshow/kit"
+d="$W/stage-check"; mkdir -p "$d"
+t  "stageshow --check는 받지 않음" env KIT_STAGESHOW_DIR="$W/none" bash -c "cd '$d' && bash '$KIT/install.sh' --extras stageshow --check | grep -q '받기'"
+t  "stageshow --check 후 비어 있음" test -z "$(ls -A "$d")" -a ! -e "$W/none"
+
+# 10. e2e.py: playwright가 없으면 exit 3 (미실행)
+if ! python3 -c 'import playwright' 2>/dev/null; then
+  python3 "$KIT/scripts/e2e_template.py" >/dev/null 2>&1; rc=$?
+  t "e2e playwright 없음 → exit 3" test $rc -eq 3
+fi
+d="$W/v-e2e"; mkdir -p "$d/scripts"; cp "$KIT/scripts/verify_template.sh" "$d/scripts/verify.sh"
+printf '#!/bin/sh\nexit 3\n' > "$d/scripts/e2e.py"
+sed -i 's|^# ===== 검사 목록.*|&\ncheck "참" true\ncheck_e2e "E2E"|' "$d/scripts/verify.sh"
+sed -i 's|python3 scripts/e2e.py|sh scripts/e2e.py|' "$d/scripts/verify.sh"
+out=$(cd "$d" && bash scripts/verify.sh 2>&1); rc=$?
+t  "check_e2e exit 3 → SKIP"      bash -c "test $rc -eq 0 && printf '%s' \"\$1\" | grep -q 'SKIP | E2E'" _ "$out"
+
+# 11. preflight는 읽기 전용
 d="$W/pre"; mkdir -p "$d"
 t  "preflight 실행"               bash -c "cd '$d' && bash '$KIT/scripts/preflight.sh'"
 t  "preflight 후 비어 있음"       test -z "$(ls -A "$d")"

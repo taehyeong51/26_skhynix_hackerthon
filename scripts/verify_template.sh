@@ -67,13 +67,26 @@ sys.exit(1)
 EOF
 }
 
+# 브라우저 시나리오(scripts/e2e.py). Playwright·브라우저가 없으면(exit 3) SKIP으로 기록한다.
+check_e2e() {   # check_e2e "R5 설명"
+  local out rc
+  out=$(python3 scripts/e2e.py 2>&1); rc=$?
+  printf '%s\n' "$out" | grep -E 'PASS \||FAIL \||RESULT|미실행' | sed 's/^/    /'
+  case $rc in
+    0) PASS=$((PASS+1)); ROWS+=("PASS | $1") ;;
+    3) skip "$1" "Playwright 또는 브라우저 없음 -> Browser에서 사람이 확인" ;;
+    *) FAIL=$((FAIL+1)); ROWS+=("FAIL | $1 (e2e exit $rc)") ;;
+  esac
+}
+
 # ===== 검사 목록 (과제 완료 조건 R번호에 맞게 채운다) =====
 # check "R1 단위 테스트"        tests_ran python3 -m pytest -q
 # check "R1 단위 테스트"        tests_ran python3 -m unittest discover -s tests
 # check "R2 첫 화면 200"        http_status "http://127.0.0.1:$PORT/" 200
 # check "R2 0.0.0.0 바인딩"     bound_all "$PORT"
 # check "R3 권한 없는 접근 403" http_status "http://127.0.0.1:$PORT/admin" 403
-# skip  "R4 화면 새로고침 유지" "Browser에서 사람이 확인"
+# check_e2e "R4 브라우저 시나리오 (로그인·권한·새로고침·입력·연타)"
+# skip  "R6 화면 디자인 확인" "Browser에서 사람이 확인"
 # =========================================================
 
 echo "== 결과"

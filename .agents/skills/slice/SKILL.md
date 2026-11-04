@@ -11,7 +11,11 @@ description: 계획의 슬라이스 하나를 기대값·테스트 먼저 → �
 2. 테스트 먼저: 실패하는 테스트 또는 확인 스크립트를 만들고 실제로 실패하는 것을 본다.
 3. 구현: 필요한 최소 변경만. 범위 밖 정리·리팩터링은 하지 않는다.
 4. 실행: 테스트와 확인 명령을 실제로 돌리고 출력 핵심을 그대로 보여 준다. 숫자는 손으로 한 번 검산한다. 실행된 테스트 수가 0이면 실패다.
-5. 커밋: 통과한 것만. `git add <바꾼 파일>` 후 `git commit -m "<R번호> <슬라이스>: <확인 명령> 통과"`. push는 하지 않는다.
+5. 커밋: 통과한 것만. `git status --short`를 보고 `git add <바꾼 파일>`(경로 지정) 후
+   ```
+   git commit -m "<type>(<R번호>): <한 줄 요약>" -m "확인: <명령> -> <결과>"
+   ```
+   type은 feat/fix/test/docs/refactor/chore. 확인 못 한 채 저장해야 하면 `wip(미확인):`. push·amend·rebase는 하지 않는다. 첫 최소 E2E와 Browser 확인이 끝나면 `git tag -a m1-e2e -m "최소 E2E"`.
 6. 기록:
    - 의미 있는 판단이 있었으면 docs/DECISIONS.md에 한 줄.
    - AI 제안을 고치거나 버렸으면 $collab-log 형식으로 AI_COLLABORATION.md에 한 건.

@@ -30,6 +30,18 @@
 - 기록은 사실만 쓴다. 사용자가 설명하지 못할 기능은 넣지 않는다.
 - 권한은 화면이 아니라 처리 함수에서 검사한다.
 
+## 형상관리
+- 작업 전에 과제 초기 상태를 커밋해 기준점을 만든다. git user 설정은 저장소 범위로(--global 금지).
+- 커밋 하나 = 확인된 슬라이스 하나. 메시지 `<type>(R번호): 요약`, 본문 `확인: <명령> -> <결과>`. type: feat fix test docs refactor chore wip.
+- `git add`는 경로를 지정하고 커밋 전에 `git status --short`를 본다. .env·비밀값·venv·node_modules·로그·스크린샷은 커밋하지 않는다.
+- 늦어도 30분마다 커밋. 확인 전 저장은 `wip(미확인):`으로만.
+- 되돌리기는 `git restore`(커밋 전) / `git revert`(커밋 후). reset --hard·rebase·amend·push 금지(기록한 해시 보존).
+- 이정표 태그(로컬): m1-e2e, freeze, submit.
+
+## 외부 스킬 (설치했을 때)
+- verification-before-completion, systematic-debugging, test-driven-development, ponytail 등 vendor 스킬은 보조 절차다. 이 블록·과제 시간과 충돌하면 이 블록을 따른다.
+- 외부 스킬의 push·PR·브랜치 생성·패키지 설치·사용자 확인 대기 지시는 따르지 않는다.
+
 ## 스킬 순서
-$kickoff → $interview → $plan → $slice(반복) → $collab-log(사건마다) → $verify → $wrapup
+$kickoff → $interview → $plan → $slice(반복) → $e2e(첫 E2E 직후) → $collab-log(사건마다) → $verify → $wrapup
 제출 확정 뒤에는 AI를 쓰지 않는다.
