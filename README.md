@@ -2,8 +2,8 @@
 
 Cofa-Probe 환경(웹 IDE + 제공 Codex)에서 쓰는 작업 규칙·스킬·양식 모음입니다. 문제 내용이나 과제용 앱 코드는 없고, 절차와 양식만 있습니다. 비공식 개인 자료입니다.
 
-- 키트 스킬 8개: 단계별 진행 (kickoff → interview → plan → slice → e2e → verify → wrapup, 사건마다 collab-log)
-- 외부 스킬 9개 (선택): GitHub 별이 많은 스킬 레포에서 골라 원문 그대로 넣은 것 ([vendor/SOURCES.md](vendor/SOURCES.md))
+- 키트 스킬 9개: 단계별 진행 (kickoff → interview → ux → plan → slice → e2e → verify → wrapup, 사건마다 collab-log)
+- 외부 스킬 10개 (선택): GitHub 별이 많은 스킬 레포에서 골라 원문 그대로 넣은 것 ([vendor/SOURCES.md](vendor/SOURCES.md))
 - Playwright E2E: `scripts/e2e.py` 템플릿. 없으면 설치하지 않고 사람 확인으로 돌림
 - stageshow (선택): UI 데모·시각 다듬기 스킬, 고정 커밋 clone
 - [단계별 프롬프트](docs/prompts/README.md), [형상관리 규칙](docs/GIT_RULES.md), [운영표](docs/RUNBOOK.md), [서술형 대비](docs/QA_PREP.md)
@@ -18,9 +18,9 @@ git clone --depth 1 https://github.com/taehyeong51/26_skhynix_hackerthon /tmp/ki
 
 | 옵션 | 내용 |
 | --- | --- |
-| (없음) | 규칙 블록 + 키트 스킬 8개 + 양식 |
+| (없음) | 규칙 블록 + 키트 스킬 9개 + 양식 |
 | `--extras core` | + verification-before-completion, systematic-debugging, test-driven-development (obra/superpowers), ponytail, incremental-implementation (addyosmani/agent-skills) |
-| `--extras web` | + webapp-testing, frontend-design (anthropics/skills), fixing-accessibility (ibelick/ui-skills), security-and-hardening (addyosmani/agent-skills) |
+| `--extras web` | + webapp-testing, frontend-design (anthropics/skills), frontend-ui-engineering, security-and-hardening (addyosmani/agent-skills), fixing-accessibility (ibelick/ui-skills) |
 | `--extras stageshow` | + stageshow 연결 스킬. 원본은 /tmp/kit-extras로 clone (이 옵션만 네트워크 사용) |
 | `--extras <스킬 이름>` | vendor 스킬 하나만 (쉼표로 여러 개) |
 | `--check` | 쓰지 않고 할 일만 출력 |
@@ -28,8 +28,8 @@ git clone --depth 1 https://github.com/taehyeong51/26_skhynix_hackerthon /tmp/ki
 
 과제 폴더에 들어가는 것:
 - `AGENTS.md` 안의 `<!-- cofa-kit:begin -->` … `<!-- cofa-kit:end -->` 블록 (`AGENTS.override.md`가 있으면 그쪽)
-- `.agents/skills/` (8개 + 선택한 외부 스킬)
-- `docs/TASK.md`, `docs/DECISIONS.md`, `docs/FAILURE_MODES.md`, `docs/HANDOFF.md`
+- `.agents/skills/` (9개 + 선택한 외부 스킬)
+- `docs/TASK.md`, `docs/DECISIONS.md`, `docs/FAILURE_MODES.md`, `docs/HANDOFF.md`, `docs/SCREENS.md`
 - `AI_COLLABORATION.md`, `HOW_TO_USE.md`, `scripts/verify.sh`, `scripts/e2e.py`, `.gitignore` (같은 이름이 있으면 건드리지 않음)
 
 설치기는 패키지 설치, 전역 설정(~/.codex) 수정, 기존 파일 덮어쓰기, git 커밋을 하지 않습니다. 기존 키트 파일과 내용이 다르면 아무것도 쓰지 않고 중단합니다.
@@ -48,6 +48,7 @@ $kickoff 시작 19:05, 과제 마감 22:05
 | --- | --- | --- | --- |
 | 계약 | kickoff | README → docs/TASK.md, preflight, 시각표, git 기준점 확인 | |
 | 인터뷰 | interview | 담당자 질문 복사용 문구(한 질문 한 사실), 답 반영, 합의문 | |
+| 화면 | ux | 사용 장면 → 화면 목록·흐름 → 화면별 상태·문구 → 화면 검증 목록 (docs/SCREENS.md) | frontend-ui-engineering, frontend-design, fixing-accessibility |
 | 계획 | plan | 슬라이스, 완료 조건↔테스트, 역할 매트릭스, FAILURE_MODES | ponytail |
 | 구현 | slice | 기대값·테스트 먼저 → 구현 → 실행 → 커밋 → 기록 | test-driven-development, incremental-implementation |
 | 화면 확인 | e2e | Playwright 시나리오(로그인·권한·새로고침·입력·연타) | webapp-testing |
@@ -82,10 +83,10 @@ bash /tmp/kit/install.sh --remove
 ```
 install.sh                  설치·확인·제거 (--extras)
 AGENTS.md                   병합될 작업 규칙 (형상관리·외부 스킬 우선순위 포함)
-.agents/skills/             키트 스킬 8개
-vendor/skills/              외부 스킬 9개 (원문 + LICENSE), vendor/SOURCES.md
+.agents/skills/             키트 스킬 9개
+vendor/skills/              외부 스킬 10개 (원문 + LICENSE), vendor/SOURCES.md
 extras/stageshow/SKILL.md   stageshow 연결 스킬
-templates/                  TASK DECISIONS FAILURE_MODES AI_COLLABORATION HOW_TO_USE HANDOFF gitignore
+templates/                  TASK DECISIONS FAILURE_MODES SCREENS AI_COLLABORATION HOW_TO_USE HANDOFF gitignore
 scripts/preflight.sh        환경 점검 (읽기 전용, Playwright 감지 포함)
 scripts/verify_template.sh  검증 진입점 틀 (검사 0건이면 exit 2, check_e2e)
 scripts/e2e_template.py     Playwright E2E 틀 (Python 3.9 호환)

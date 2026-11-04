@@ -93,7 +93,7 @@ M04,전사,18,90,FRI,16:00
         ▼
 [처리: 키트 설치]  install.sh --extras core,web
   ├─ AGENTS.md 규칙을 과제/AGENTS.md 에 표식 블록으로 병합
-  ├─ .agents/skills/* (8개) + vendor/skills/* (9개) → 과제/.agents/skills/
+  ├─ .agents/skills/* (9개) + vendor/skills/* (10개) → 과제/.agents/skills/
   ├─ templates/* → 과제/docs/*, 과제/AI_COLLABORATION.md, 과제/HOW_TO_USE.md, 과제/.gitignore
   └─ scripts/verify_template.sh → 과제/scripts/verify.sh, scripts/e2e_template.py → 과제/scripts/e2e.py
   환경 점검: scripts/preflight.sh (읽기 전용)
@@ -124,7 +124,7 @@ M04,전사,18,90,FRI,16:00
 | --- | --- | --- | --- |
 | 0. 기준점 | `docs/GIT_RULES.md` A1 | `git init`, `git commit -m "chore: 과제 초기 상태"` | 제공 파일만 담긴 커밋 |
 | 1. 설치 확인 | `install.sh` | `bash /tmp/kit/install.sh --check --extras core,web` | 할 일 목록, 충돌 0건이면 exit 0 [실행함] |
-| 2. 설치 | `install.sh`, `AGENTS.md`, `.agents/skills/`, `vendor/skills/`, `templates/` | `bash /tmp/kit/install.sh --extras core,web` | 스킬 17개, `과제/docs/` 양식 4개 [실행함] |
+| 2. 설치 | `install.sh`, `AGENTS.md`, `.agents/skills/`, `vendor/skills/`, `templates/` | `bash /tmp/kit/install.sh --extras core,web` | 스킬 19개, `과제/docs/` 양식 5개 [실행함] |
 | 3. 환경 점검 | `scripts/preflight.sh` | `bash /tmp/kit/scripts/preflight.sh` | 버전, Playwright 유무, 시간대, 포트, git user [실행함] |
 | 4. 로딩 확인 | `docs/prompts/00-setup.md` | Codex에서 `/skills` 와 확인 프롬프트 | 스킬 이름 목록 [uncertain] |
 | 5. 계약서 | `.agents/skills/kickoff/SKILL.md`, `templates/TASK.md`, `docs/prompts/01-kickoff.md` | `$kickoff 시작 HH:MM, …` | `과제/docs/TASK.md` [uncertain] |
@@ -164,14 +164,14 @@ M04,전사,18,90,FRI,16:00
 | --- | --- | --- | --- | --- |
 | V1 | 키트 자체 테스트 | `bash tests/test_install.sh` | 마지막 줄 `PASS 70 / FAIL 0`, exit 0 | 통과 [실행함] |
 | V2 | 설치 전 확인 | `bash install.sh --check --extras core,web` (과제 폴더) | `충돌 0 건`, exit 0, 폴더 변화 없음 | 통과 [실행함] |
-| V3 | 설치 | `bash install.sh --extras core,web` | `.agents/skills`에 17개, `docs/`에 TASK·DECISIONS·FAILURE_MODES·HANDOFF | 통과(17개) [실행함] |
+| V3 | 설치 | `bash install.sh --extras core,web` | `.agents/skills`에 19개, `docs/`에 TASK·DECISIONS·FAILURE_MODES·HANDOFF·SCREENS | 통과(19개) [실행함] |
 | V4 | 재설치가 같은 결과 | 같은 명령을 다시 실행 | exit 0, `생성` 줄 0개 | 통과 [실행함] |
 | V5 | 검사 0건 거부 | `bash scripts/verify.sh` (목록 비움) | `실행된 검사 0건: 실패로 처리`, exit 2 | 통과 [실행함] |
 | V6 | 서버 검사 | 검사 목록에 `http_status`, `bound_all` 추가 후 실행 | `PASS 2 / FAIL 0` | 통과 [실행함, 정적 페이지 서버] |
 | V7 | Playwright 없음 | 시스템 `python3`로 `python3 scripts/e2e.py --check` | `미실행: …`, exit 3 | 통과 [실행함] |
 | V8 | Playwright 있음 | Playwright가 있는 Python으로 verify 실행 | `R4 브라우저 시나리오` PASS, `PASS 3 / FAIL 0 / SKIP 0` | 통과 [실행함, 개발용 venv] |
 | V9 | 끄기 | `bash install.sh --remove` | 블록·미수정 스킬 삭제, 작업 문서 유지 | 통과 [실행함] |
-| V10 | 스킬 로딩 | Codex `/skills` | 키트 8개 + 외부 9개 이름 표시 | [uncertain] |
+| V10 | 스킬 로딩 | Codex `/skills` | 키트 9개 + 외부 10개 이름 표시 | [uncertain] |
 | V11 | 가상 과제 결과 | `과제/scripts/verify.sh` (과제에 맞게 채움) | R번호 전부 PASS 또는 이유 있는 SKIP | [uncertain] 시연 때 확인 |
 | V12 | 기록 일치 | `git log --oneline` vs `과제/AI_COLLABORATION.md` 사건 로그 | 사건마다 해시가 log에 있음 | [uncertain] 시연 때 확인 |
 
@@ -221,7 +221,7 @@ V6~V8의 서버는 리허설용 정적 HTML이었습니다. 회의실 예약 앱
 **단계 0~3. 기준점과 설치**
 - 하는 일: 과제 초기 상태를 커밋하고, 키트를 과제 폴더 밖(`/tmp/kit`)에 받아 규칙·스킬·양식만 과제에 넣습니다.
 - 왜 필요한가: 제가 만든 변경과 제공된 파일을 git으로 구분하고, 키트 원본이 제출물에 섞이지 않게 합니다.
-- 직접 확인: `bash /tmp/kit/install.sh --check` 출력의 `충돌 0 건`, 설치 후 `ls .agents/skills | wc -l` → 17.
+- 직접 확인: `bash /tmp/kit/install.sh --check` 출력의 `충돌 0 건`, 설치 후 `ls .agents/skills | wc -l` → 19.
 - 예상 질문: "남의 키트를 그대로 쓴 것 아닌가?" → 외부 스킬은 원문 그대로 라이선스와 함께 넣었고 출처·커밋은 `vendor/SOURCES.md`에 있습니다. 나머지 규칙·스킬은 직접 썼고 참고한 아이디어는 `NOTICE`에 적었습니다.
 
 **단계 4. 로딩 확인**
@@ -332,7 +332,7 @@ V6~V8의 서버는 리허설용 정적 HTML이었습니다. 회의실 예약 앱
 | 시간 | 단계 | 실행 | 기대 출력 | 실패 시 대응 |
 | --- | --- | --- | --- | --- |
 | 0:00–2:00 | 소개 | 이 문서 '먼저 알아 둘 것'과 2-1 도식 | — | — |
-| 2:00–5:00 | 설치 | `git init` → 기준점 커밋 → `bash /tmp/kit/install.sh --check --extras core,web` → 같은 명령에서 `--check` 빼고 실행 | `충돌 0 건`, `설치 완료: 스킬 17개` | 충돌이 나면 그 줄을 보여 주고 "아무것도 쓰지 않았다"는 안전장치로 설명 |
+| 2:00–5:00 | 설치 | `git init` → 기준점 커밋 → `bash /tmp/kit/install.sh --check --extras core,web` → 같은 명령에서 `--check` 빼고 실행 | `충돌 0 건`, `설치 완료: 스킬 19개` | 충돌이 나면 그 줄을 보여 주고 "아무것도 쓰지 않았다"는 안전장치로 설명 |
 | 5:00–6:30 | 환경 점검 | `bash /tmp/kit/scripts/preflight.sh` | Playwright 유무, 포트 비어 있음 | 이 출력이 이후 구성 선택의 근거라고 설명 |
 | 6:30–8:00 | 안전장치 | `bash scripts/verify.sh` (목록 비움) | `실행된 검사 0건: 실패로 처리`, exit 2 | — |
 | 8:00–12:00 | 계약 | Codex 새로 열기 → `/skills` → `docs/prompts/01-kickoff.md` 프롬프트 | `과제/docs/TASK.md`, 열린 질문 5개(맞닿는 시간, 정기회의 우선순위 등) | 스킬이 안 보이면 경로 방식. 응답이 늦으면 준비한 TASK.md로 대체 |
@@ -346,7 +346,7 @@ V6~V8의 서버는 리허설용 정적 HTML이었습니다. 회의실 예약 앱
 
 ## 남은 불확실성 [uncertain]
 
-- Codex가 `.agents/skills`를 실제로 인식하는지, 스킬 17개를 로딩할 때 컨텍스트 부담이 어떤지
+- Codex가 `.agents/skills`를 실제로 인식하는지, 스킬 19개를 로딩할 때 컨텍스트 부담이 어떤지
 - Codex가 각 프롬프트에 기대한 형식으로 답하는지(단계 4~12의 출력 전부)
 - 시험 플랫폼이 대화·터미널·git log를 어떻게 수집하고 평가에 쓰는지
 - 시험 환경에 Python Playwright와 브라우저가 있는지(없으면 V7 경로로 진행)

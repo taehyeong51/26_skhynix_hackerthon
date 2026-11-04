@@ -6,9 +6,9 @@
 | --- | --- | --- | --- | --- |
 | [00-setup](00-setup.md) | 설치와 로딩 확인 | 19:00 | — | 스킬이 보이고 커밋 2개가 있음 |
 | [01-kickoff](01-kickoff.md) | 계약서 | ~19:20 | kickoff | TASK.md에 사실·가정·열린 질문·완료 조건 |
-| [02-interview](02-interview.md) | 담당자 인터뷰 | ~19:40 | interview | 담당자가 확인한 합의문 |
-| [03-plan](03-plan.md) | 구성 선택과 계획 | ~19:50 | plan | 슬라이스 표, R↔확인 방법, FAILURE_MODES |
-| [04-first-e2e](04-first-e2e.md) | 최소 E2E와 화면 확인 | ~20:20 | slice, e2e | 서버가 돌고 사람이 화면을 확인, 태그 m1-e2e |
+| [02-interview](02-interview.md) | 담당자 인터뷰, 화면 기획 | ~19:40 | interview, ux | 담당자가 확인한 합의문, 사용 장면 |
+| [03-plan](03-plan.md) | 구성 선택, 계획, 화면 구성·설계 | ~19:50 | plan, ux | 슬라이스 표, R↔확인 방법, FAILURE_MODES, SCREENS |
+| [04-first-e2e](04-first-e2e.md) | 최소 E2E와 화면 확인 | ~20:20 | slice, ux, e2e | 서버가 돌고 사람이 화면을 확인, 태그 m1-e2e |
 | [05-iterate](05-iterate.md) | 슬라이스 반복 | ~21:20 | slice | R번호별 통과, 설명 가능한 변경 |
 | [06-stuck](06-stuck.md) | 막혔을 때 | 수시 | collab-log 외 | 원인 확인 후 수정 또는 범위 축소 결정 |
 | [07-midcheck](07-midcheck.md) | 중간 점검 | ~21:10 | verify | 남은 시간 작업 순서 확정 |

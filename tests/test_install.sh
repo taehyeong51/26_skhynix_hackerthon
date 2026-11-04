@@ -15,7 +15,8 @@ inst() { (cd "$1" && bash "$KIT/install.sh" "${@:2}"); }
 d="$W/empty"; mkdir -p "$d"
 t  "빈 폴더 설치 성공"            inst "$d"
 t  "AGENTS.md 생성"               test -f "$d/AGENTS.md"
-t  "스킬 8개 (extras 없음)"       test "$(ls "$d/.agents/skills" | wc -l)" -eq 8
+t  "스킬 9개 (extras 없음)"       test "$(ls "$d/.agents/skills" | wc -l)" -eq 9
+t  "docs/SCREENS.md 생성"         test -f "$d/docs/SCREENS.md"
 t  "e2e.py 생성"                  test -x "$d/scripts/e2e.py"
 t  ".gitignore 생성"              grep -q node_modules "$d/.gitignore"
 t  "docs/TASK.md 생성"            test -f "$d/docs/TASK.md"
@@ -83,7 +84,8 @@ nt "unittest 0건은 실패"          bash -c "source <(sed -n '/^tests_ran()/,/
 # 9. --extras
 d="$W/extras"; mkdir -p "$d"
 t  "--extras core,web 설치"       inst "$d" --extras core,web
-t  "스킬 17개"                    test "$(ls "$d/.agents/skills" | wc -l)" -eq 17
+t  "스킬 19개"                    test "$(ls "$d/.agents/skills" | wc -l)" -eq 19
+t  "ux 스킬과 UI 외부 스킬"       test -f "$d/.agents/skills/ux/SKILL.md" -a -f "$d/.agents/skills/frontend-ui-engineering/LICENSE"
 t  "vendor 원문 그대로"           diff -rq "$KIT/vendor/skills/systematic-debugging" "$d/.agents/skills/systematic-debugging"
 t  "vendor LICENSE 동봉"          test -f "$d/.agents/skills/ponytail/LICENSE" -a -f "$d/.agents/skills/webapp-testing/LICENSE.txt"
 t  "extras 재설치 변화 없음"      inst "$d" --extras all
@@ -95,7 +97,7 @@ t  "수정 안 된 vendor 삭제"       test ! -e "$d/.agents/skills/systematic-
 t  "수정한 vendor는 남김"         test -f "$d/.agents/skills/ponytail/SKILL.md"
 d="$W/single"; mkdir -p "$d"
 t  "스킬 이름으로 하나만"         inst "$d" --extras webapp-testing
-t  "하나만 설치됨"                test "$(ls "$d/.agents/skills" | wc -l)" -eq 9
+t  "하나만 설치됨"                test "$(ls "$d/.agents/skills" | wc -l)" -eq 10
 # stageshow: 네트워크 없이 미리 받아 둔 폴더로 확인
 s="$W/fake-stageshow"; mkdir -p "$s"; printf -- '---\nname: stageshow\n---\n' > "$s/SKILL.md"
 d="$W/stage"; mkdir -p "$d"

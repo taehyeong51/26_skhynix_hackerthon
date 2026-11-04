@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # cofa-kit 설치기. 과제 폴더(작업 루트)에서 실행한다. 키트 원본은 /tmp/kit 같은 과제 밖에 둔다.
 #
-#   bash /tmp/kit/install.sh                    기본 설치 (규칙 + 키트 스킬 8개 + 양식)
+#   bash /tmp/kit/install.sh                    기본 설치 (규칙 + 키트 스킬 9개 + 양식)
 #   bash /tmp/kit/install.sh --extras core,web  외부 스킬 묶음도 설치 (vendor/SOURCES.md)
 #   bash /tmp/kit/install.sh --check            쓰지 않고 무엇을 할지만 출력 (충돌 있으면 exit 1)
 #   bash /tmp/kit/install.sh --remove           규칙 블록과 수정 안 된 스킬 제거 (작업 문서는 남김)
@@ -9,7 +9,7 @@
 #
 # --extras 값 (쉼표로 여러 개): core, web, all, stageshow, 또는 vendor/skills 아래 스킬 이름
 #   core = verification-before-completion systematic-debugging test-driven-development ponytail incremental-implementation
-#   web  = webapp-testing frontend-design fixing-accessibility security-and-hardening
+#   web  = webapp-testing frontend-design frontend-ui-engineering fixing-accessibility security-and-hardening
 #   stageshow = 공개 GitHub에서 고정 커밋을 /tmp/kit-extras 로 clone (이 옵션만 네트워크 사용)
 #
 # 하는 일
@@ -47,9 +47,9 @@ fi
 BEGIN='<!-- cofa-kit:begin -->'
 END='<!-- cofa-kit:end -->'
 RULES="$KIT_DIR/AGENTS.md"
-SKILLS=(kickoff interview plan slice e2e verify collab-log wrapup)
+SKILLS=(kickoff interview ux plan slice e2e verify collab-log wrapup)
 CORE=(verification-before-completion systematic-debugging test-driven-development ponytail incremental-implementation)
-WEB=(webapp-testing frontend-design fixing-accessibility security-and-hardening)
+WEB=(webapp-testing frontend-design frontend-ui-engineering fixing-accessibility security-and-hardening)
 VENDOR_ALL=("${CORE[@]}" "${WEB[@]}")
 STAGESHOW_SRC="${KIT_STAGESHOW_DIR:-/tmp/kit-extras/stageshow}"
 
@@ -83,6 +83,7 @@ KEEP=(
   "$KIT_DIR/templates/DECISIONS.md|$TARGET/docs/DECISIONS.md"
   "$KIT_DIR/templates/FAILURE_MODES.md|$TARGET/docs/FAILURE_MODES.md"
   "$KIT_DIR/templates/HANDOFF.md|$TARGET/docs/HANDOFF.md"
+  "$KIT_DIR/templates/SCREENS.md|$TARGET/docs/SCREENS.md"
   "$KIT_DIR/templates/AI_COLLABORATION.md|$TARGET/AI_COLLABORATION.md"
   "$KIT_DIR/templates/HOW_TO_USE.md|$TARGET/HOW_TO_USE.md"
   "$KIT_DIR/templates/gitignore|$TARGET/.gitignore"

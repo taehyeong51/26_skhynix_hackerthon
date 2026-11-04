@@ -31,7 +31,11 @@ $security-and-hardening 로그인·권한·입력 검증만 보자.
 git log와 실제 실행 결과를 기준으로 AI_COLLABORATION.md, HOW_TO_USE.md, DECISIONS.md에서 사실과 다른 문장이나 비어 있는 칸을 찾아줘. 고치지 말고 위치와 이유만 알려줘.
 ```
 
-### 4. 시간이 남을 때만 (web 설치 시)
+### 4. 화면 점검 (web 설치 시, 시간이 남을 때만)
+
+```
+$frontend-ui-engineering docs/SCREENS.md의 화면별 상태(비어 있음, 처리 중, 오류, 권한 없음)가 실제 화면에 구현됐는지만 점검해. 빠진 상태와 문구 불일치를 목록으로, 고치지는 마.
+```
 
 ```
 $fixing-accessibility <화면 파일>의 폼 라벨, 키보드 이동, 대비만 점검해. 최소 수정만 제안하고 적용은 내가 정한 뒤에.

@@ -16,6 +16,7 @@ GitHub에서 별이 많은 스킬 레포를 조사해, 이 키트(시험장 Code
 | security-and-hardening | addyosmani/agent-skills | `301b02b` | MIT | web | 로그인·권한·입력 검증 (10/31 로그인 문제) |
 | webapp-testing | [anthropics/skills](https://github.com/anthropics/skills) (187,128) | `ca45fc4` | Apache-2.0 (폴더 안 LICENSE.txt) | web | Python Playwright로 로컬 웹앱 확인, `with_server.py` |
 | frontend-design | anthropics/skills | `ca45fc4` | Apache-2.0 (폴더 안 LICENSE.txt) | web | 화면 디자인 방향, 템플릿 같은 기본값 피하기 |
+| frontend-ui-engineering | addyosmani/agent-skills | `301b02b` | MIT | web | 화면 상태(빈·오류·로딩), 접근성, 반응형. 예시 코드는 React·Tailwind지만 원칙은 프레임워크와 무관하며 설치를 요구하지 않음. 키트 `$ux`의 구현·점검 보조 |
 | fixing-accessibility | [ibelick/ui-skills](https://github.com/ibelick/ui-skills) (10,581) | `73fb128` | MIT | web | 폼·버튼·키보드·대비 점검 (프레임워크 무관) |
 
 설치: `bash /tmp/kit/install.sh --extras core,web` (묶음 대신 스킬 이름을 쉼표로 줘도 됨).
@@ -36,6 +37,8 @@ GitHub에서 별이 많은 스킬 레포를 조사해, 이 키트(시험장 Code
 | addyosmani/agent-skills | browser-testing-with-devtools | Chrome DevTools MCP가 필요 |
 | [openai/skills](https://github.com/openai/skills) (28,501) | playwright, playwright-interactive | `npx`로 `@playwright/cli`를 내려받거나 `js_repl`이 필요. 시험장 네트워크 차단 시 동작 안 함 |
 | [microsoft/playwright-cli](https://github.com/microsoft/playwright-cli) (14,928) | playwright-cli | `npm install -g` 필요 |
+| [pbakaus/impeccable](https://github.com/pbakaus/impeccable) (101,852) | impeccable | 첫 실행 때 `curl`로 엔진 바이너리를 내려받음(시험장 네트워크 규정과 충돌), 2.3MB. 업무 화면(Operate) 원칙만 키트 `$ux`에 아이디어로 반영 |
+| [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) (109,691) | design-taste-frontend | 랜딩·마케팅 페이지 아트 디렉션 중심, node 스크립트로 방향을 뽑고 브라우저 검사. 업무용 웹 서비스와 맞지 않음 |
 | ibelick/ui-skills | baseline-ui, improve-ui | baseline-ui는 Tailwind·motion·Radix 사용을 강제(npm 필요). improve-ui는 읽기 전용 감사·계획용이라 시간 대비 효과가 작음 |
 | [affaan-m/ECC](https://github.com/affaan-m/ECC) (296,582), [msitarzewski/agency-agents](https://github.com/msitarzewski/agency-agents) (166,335) | 전체 | 수십~수백 개 묶음. 일괄 설치는 시험 중 읽는 비용과 충돌 위험이 큼 |
 

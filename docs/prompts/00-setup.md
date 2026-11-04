@@ -41,7 +41,7 @@ Codex를 이 폴더에서 **새로** 연 뒤 `/status`, `/model`, `/skills`를 �
 ```
 
 ## 정상이면
-- 스킬 목록에 키트 8개(kickoff interview plan slice e2e verify collab-log wrapup)와 설치한 외부 스킬이 보입니다.
+- 스킬 목록에 키트 9개(kickoff interview ux plan slice e2e verify collab-log wrapup)와 설치한 외부 스킬이 보입니다.
 - git status가 깨끗합니다.
 - preflight에서 쓸 수 있는 웹 패키지, 포트, Playwright 유무를 메모했습니다.
 

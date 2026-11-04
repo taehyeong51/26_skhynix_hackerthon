@@ -6,7 +6,7 @@ cofa-kit — 참고 자료와 제3자 구성요소
        Copyright (c) 2025 Jesse Vincent — MIT — https://github.com/obra/superpowers
    - ponytail
        Copyright (c) 2026 DietrichGebert — MIT — https://github.com/DietrichGebert/ponytail
-   - incremental-implementation, security-and-hardening
+   - incremental-implementation, security-and-hardening, frontend-ui-engineering
        Copyright (c) 2025 Addy Osmani — MIT — https://github.com/addyosmani/agent-skills
    - webapp-testing, frontend-design
        Anthropic — Apache License 2.0 — https://github.com/anthropics/skills
@@ -20,6 +20,8 @@ cofa-kit — 참고 자료와 제3자 구성요소
 이 키트의 나머지 파일은 새로 작성했습니다. 아래 공개 레포에서 코드를 복사하지 않았고,
 README·구성에서 본 아이디어만 참고해 다시 썼습니다. 각 레포의 저작권과 라이선스는 해당 작성자에게 있습니다.
 
+- pbakaus/impeccable — 업무 화면(Operate) 원칙: 훑어보기 쉬움, 일관성, 익숙한 패턴, 정확한 문구 (.agents/skills/ux)
+  https://github.com/pbakaus/impeccable
 - addyosmani/agent-skills git-workflow-and-versioning — 원자적 커밋·커밋 메시지 규칙 (docs/GIT_RULES.md)
   https://github.com/addyosmani/agent-skills
 
