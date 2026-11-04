@@ -117,6 +117,20 @@ sed -i 's|python3 scripts/e2e.py|sh scripts/e2e.py|' "$d/scripts/verify.sh"
 out=$(cd "$d" && bash scripts/verify.sh 2>&1); rc=$?
 t  "check_e2e exit 3 → SKIP"      bash -c "test $rc -eq 0 && printf '%s' \"\$1\" | grep -q 'SKIP | E2E'" _ "$out"
 
+# 10b. 단계별 프롬프트 문서
+P="$KIT/docs/prompts"
+for f in 00-setup 01-kickoff 02-interview 03-plan 04-first-e2e 05-iterate 06-stuck 07-midcheck 08-freeze 09-submit S1-handoff; do
+  t "프롬프트 $f 존재·구조" bash -c "f='$P/$f.md'; test -f \"\$f\" && grep -q '^## 언제' \"\$f\" && grep -q '^## 프롬프트' \"\$f\" && grep -q '^## 정상이면' \"\$f\" && grep -q '^## 아니면' \"\$f\" && grep -q '^## 다음' \"\$f\""
+done
+t  "프롬프트 인덱스가 모든 단계 파일을 가리킴" bash -c "cd '$P' && for f in [0-9]*.md S1-*.md; do grep -q \"(\${f%.md}.md)\" README.md || { echo missing \$f; exit 1; }; done"
+t  "프롬프트의 \$스킬 이름이 실제 스킬" bash -c "
+  names=\$(grep -ohE '\\\$[a-z][a-z-]+' '$P'/*.md | tr -d '\$' | sort -u)
+  for n in \$names; do
+    [ -f '$KIT/.agents/skills/'\$n'/SKILL.md' ] || [ -f '$KIT/vendor/skills/'\$n'/SKILL.md' ] || [ -f '$KIT/extras/'\$n'/SKILL.md' ] || { echo \"없는 스킬: \$n\"; exit 1; }
+  done"
+t  "프롬프트의 문서 링크가 유효" bash -c "cd '$P' && for l in \$(grep -ohE '\\]\\(\\.\\./[A-Za-z_]+\\.md\\)' *.md | sed -E 's/\\]\\((.*)\\)/\\1/' | sort -u); do test -f \"\$l\" || { echo broken \$l; exit 1; }; done"
+t  "옛 PROMPTS.md 참조 없음"       bash -c "! grep -rq 'PROMPTS.md' '$KIT' --exclude-dir=.git --exclude-dir=vendor --exclude=test_install.sh"
+
 # 11. preflight는 읽기 전용
 d="$W/pre"; mkdir -p "$d"
 t  "preflight 실행"               bash -c "cd '$d' && bash '$KIT/scripts/preflight.sh'"

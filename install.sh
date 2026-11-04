@@ -193,6 +193,6 @@ cat <<EOF
   1. git add -A && git commit -m "chore: cofa-kit 설치 ($kit_rev)"
   2. Codex를 이 폴더에서 새로 연다 (이미 열린 세션에는 스킬이 반영되지 않음)
   3. /status 와 /skills 로 확인. 안 보이면 ".agents/skills/kickoff/SKILL.md 읽고 따라"
-  4. \$kickoff 시작 HH:MM, 과제 마감 HH:MM   (프롬프트 모음: cat $KIT_DIR/docs/PROMPTS.md)
+  4. \$kickoff 시작 HH:MM, 과제 마감 HH:MM   (프롬프트 모음: cat $KIT_DIR/docs/prompts/README.md)
 끄기: bash $KIT_DIR/install.sh --remove
 EOF

@@ -6,7 +6,7 @@ Cofa-Probe 환경(웹 IDE + 제공 Codex)에서 쓰는 작업 규칙·스킬·�
 - 외부 스킬 9개 (선택): GitHub 별이 많은 스킬 레포에서 골라 원문 그대로 넣은 것 ([vendor/SOURCES.md](vendor/SOURCES.md))
 - Playwright E2E: `scripts/e2e.py` 템플릿. 없으면 설치하지 않고 사람 확인으로 돌림
 - stageshow (선택): UI 데모·시각 다듬기 스킬, 고정 커밋 clone
-- [단계별 프롬프트](docs/PROMPTS.md), [형상관리 규칙](docs/GIT_RULES.md), [운영표](docs/RUNBOOK.md), [서술형 대비](docs/QA_PREP.md)
+- [단계별 프롬프트](docs/prompts/README.md), [형상관리 규칙](docs/GIT_RULES.md), [운영표](docs/RUNBOOK.md), [서술형 대비](docs/QA_PREP.md)
 
 ## 설치 (과제 폴더 터미널에서)
 
@@ -42,7 +42,7 @@ git clone --depth 1 https://github.com/taehyeong51/26_skhynix_hackerthon /tmp/ki
 $kickoff 시작 19:05, 과제 마감 22:05
 ```
 
-단계마다 붙여 넣을 문장은 [docs/PROMPTS.md](docs/PROMPTS.md)에 있습니다. 시험 중에는 `cat /tmp/kit/docs/PROMPTS.md`로 엽니다.
+단계마다 붙여 넣을 문장은 [docs/prompts/](docs/prompts/README.md)에 있습니다. 시험 중에는 `cat /tmp/kit/docs/prompts/<파일>`로 엽니다.
 
 | 단계 | 스킬 | 하는 일 | 함께 쓰는 외부 스킬 |
 | --- | --- | --- | --- |
@@ -90,7 +90,7 @@ scripts/preflight.sh        환경 점검 (읽기 전용, Playwright 감지 포�
 scripts/verify_template.sh  검증 진입점 틀 (검사 0건이면 exit 2, check_e2e)
 scripts/e2e_template.py     Playwright E2E 틀 (Python 3.9 호환)
 scripts/fetch_stageshow.sh  stageshow 고정 커밋 clone
-docs/                       PROMPTS, GIT_RULES, RUNBOOK, QA_PREP (과제 폴더로 복사하지 않음)
+docs/                       prompts/(단계별 11개), GIT_RULES, RUNBOOK, QA_PREP (과제 폴더로 복사하지 않음)
 tests/test_install.sh       설치기·스크립트 오프라인 테스트
 ```
 
