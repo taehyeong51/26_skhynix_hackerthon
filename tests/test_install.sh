@@ -121,10 +121,10 @@ t  "check_e2e exit 3 → SKIP"      bash -c "test $rc -eq 0 && printf '%s' \"\$1
 
 # 10b. 단계별 프롬프트 문서
 P="$KIT/docs/prompts"
-for f in 00-setup 01-kickoff 02-interview 03-plan 04-first-e2e 05-iterate 06-stuck 07-midcheck 08-freeze 09-submit S1-handoff; do
+for f in 00-setup 01-kickoff 02-interview 03-plan 04-first-e2e 05-iterate 06-stuck 07-midcheck 08-freeze 09-submit S1-handoff S2-study-tab; do
   t "프롬프트 $f 존재·구조" bash -c "f='$P/$f.md'; test -f \"\$f\" && grep -q '^## 언제' \"\$f\" && grep -q '^## 프롬프트' \"\$f\" && grep -q '^## 정상이면' \"\$f\" && grep -q '^## 아니면' \"\$f\" && grep -q '^## 다음' \"\$f\""
 done
-t  "프롬프트 인덱스가 모든 단계 파일을 가리킴" bash -c "cd '$P' && for f in [0-9]*.md S1-*.md; do grep -q \"(\${f%.md}.md)\" README.md || { echo missing \$f; exit 1; }; done"
+t  "프롬프트 인덱스가 모든 단계 파일을 가리킴" bash -c "cd '$P' && for f in [0-9]*.md S[0-9]-*.md; do grep -q \"(\${f%.md}.md)\" README.md || { echo missing \$f; exit 1; }; done"
 t  "프롬프트의 \$스킬 이름이 실제 스킬" bash -c "
   names=\$(grep -ohE '\\\$[a-z][a-z-]+' '$P'/*.md | tr -d '\$' | sort -u)
   for n in \$names; do

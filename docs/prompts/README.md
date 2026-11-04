@@ -15,6 +15,7 @@
 | [08-freeze](08-freeze.md) | 기능 동결 | 21:24 | verify | 태그 freeze, 고칠 것·한계 결정 |
 | [09-submit](09-submit.md) | 제출 마무리 | ~21:50 | wrapup | 문서가 사실과 일치, 태그 submit |
 | [S1-handoff](S1-handoff.md) | 인계와 재접속 | 수시 | — | 새 세션이 상태 3줄을 말함 |
+| [S2-study-tab](S2-study-tab.md) | 공부 에이전트(문제·풀이 이해, 서술형 대비) | 에이전트 대기 중 | — | 읽기 전용으로 질문받고 내 말로 답함 |
 
 서술형(AI 금지)에는 프롬프트가 없습니다. [QA_PREP](../QA_PREP.md)를 보세요.
 
